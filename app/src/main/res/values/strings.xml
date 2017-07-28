@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">ModuleDetect</string>
     <string name="camera_swap_notification_title">Camera module changed successfully!</string>
-    <string name="camera_swap_notification_text">To make sure your new <strong>camer</strong>>a works optimally, please read these tips.</string>
+    <string name="camera_swap_notification_text">To make sure your new camera works optimally, please read these tips.</string>
     <string name="camera_swap_notification_dismiss">Dismiss</string>
     <string name="camera_swap_notification_open">Open</string>
+    <string name="camera_swap_notification_fairphone_camera">Fairphone Camera</string>
 </resources>
