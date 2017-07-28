@@ -3,6 +3,7 @@ package com.fairphone.moduledetect;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -25,6 +26,13 @@ public class CameraSwapNotification {
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
+    public static void destroyNotification(Context context) {
+        NotificationManager notificationManager = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancel(NOTIFICATION_ID);
+    }
+
+
     static Notification getNotification(Context context) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
@@ -45,6 +53,8 @@ public class CameraSwapNotification {
     }
 
     public static void dismiss(Context context) {
+        destroyNotification(context);
+        context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
         SharedPreferences preferenceManager =
                 PreferenceManager.getDefaultSharedPreferences(context);
         preferenceManager.edit().putBoolean("com.fairphone.moduledetect.notification_needs_dismissal",

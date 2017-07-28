@@ -4,6 +4,8 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 
 public class CameraSwapIntentService extends IntentService {
     static final String ACTION_NOTIFICATION_DISMISS = "com.fairphone.moduledetect.notification_dismiss";
@@ -48,12 +50,22 @@ public class CameraSwapIntentService extends IntentService {
     }
 
     private void handleActionSwipeNotification() {
+        Log.d("ModuleDetect", "Camera Swap notification dismissed. Will show again on next reboot.");
     }
 
     private void handleActionOpenNotification() {
+        Log.d("ModuleDetect", "Opening support article.");
+        CameraSwapNotification.dismiss(this);
+        String url = getString(R.string.camera_swap_url);
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 
     private void handleActionDismissNotification() {
+        Log.d("ModuleDetect", "Camera Swap notification dismissed.");
         CameraSwapNotification.dismiss(this);
     }
 }
