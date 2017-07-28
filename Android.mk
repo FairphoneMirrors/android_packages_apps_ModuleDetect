@@ -44,6 +44,6 @@ LOCAL_SDK_VERSION := current
 LOCAL_PACKAGE_NAME := ModuleDetect
 
 LOCAL_CERTIFICATE := platform
-
+LOCAL_PRIVILEGED_MODULE := true
 
 include $(BUILD_PACKAGE)
