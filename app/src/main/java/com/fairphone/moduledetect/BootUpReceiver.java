@@ -10,23 +10,17 @@ import java.io.InputStreamReader;
 
 public class BootUpReceiver extends BroadcastReceiver {
 
-    private static boolean isChangedModule() {
-        try {
-            Process process = Runtime.getRuntime().exec(new String[]{"/system/bin/getprop",
-                    "ro.build.fingerprint"});
-            BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(process.getInputStream()));
-            return "1".equals(reader.readLine());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+    private static boolean isChangedModule(Context context) {
+        CameraModules cm = new CameraModules(context);
+        cm.updateCameraDetection();
+
+        return cm.changedSinceLastBoot();
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            if(isChangedModule() || CameraSwapNotification.needsDismissal(context)) {
+            if(isChangedModule(context) || CameraSwapNotification.needsDismissal(context)) {
                 CameraSwapNotification.showNotification(context);
             }
         }
