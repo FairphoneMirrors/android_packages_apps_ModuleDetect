@@ -28,7 +28,7 @@ public class CameraSwapNotification {
     static Notification getNotification(Context context) {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(android.support.v7.appcompat.R.drawable.notification_template_icon_bg)
+                        .setSmallIcon(R.drawable.ic_stat_camera_swap)
                         .setContentTitle(context.getString(R.string.camera_swap_notification_title))
                         .setContentText(context.getString(R.string.camera_swap_notification_text))
                         .setStyle(new NotificationCompat.BigTextStyle().setBigContentTitle(context.getString(R.string.camera_swap_notification_title)))
