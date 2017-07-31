@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">ModuleDetect</string>
+    <string name="app_name" translatable="false">Fairphone Module Detect</string>
     <string name="camera_swap_notification_title">Camera module changed successfully!</string>
     <string name="camera_swap_notification_text">To make sure your new camera works optimally, please read these tips.</string>
     <string name="camera_swap_notification_dismiss">Dismiss</string>
