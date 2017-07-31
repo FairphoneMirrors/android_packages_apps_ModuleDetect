@@ -18,8 +18,16 @@ public class CameraSwapNotification {
                 false);
     }
 
+    static void setNeedsDismissal(Context context) {
+        SharedPreferences preferenceManager =
+                PreferenceManager.getDefaultSharedPreferences(context);
+        preferenceManager.edit().putBoolean("com.fairphone.moduledetect.notification_needs_dismissal",
+                true);
+    }
+
     public static void showNotification(Context context) {
         Notification notification = getNotification(context);
+        setNeedsDismissal(context);
         NotificationManager notificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
