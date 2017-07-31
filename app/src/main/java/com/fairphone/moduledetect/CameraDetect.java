@@ -1,102 +1,77 @@
 package com.fairphone.moduledetect;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
 
 /**
- * Wrapper for /system/bin/camera_detect
+ * Wrapper for finding currently installed front and main camera sensors
  */
 
 public class CameraDetect {
 
     private static final String TAG = "CameraDetect";
 
-    private static final String CAMERA_DETECT_BINARY = "/system/bin/camera_detect";
-
-    private static final String FIELD_DELIM = ",";
-    private static final String VALUE_DELIM = ":";
-
-    private static final String DEV_FIELD_NAME = "dev";
-    private static final String SENSOR_FIELD_NAME = "sensor";
-    private static final String POSITION_FIELD_NAME = "pos";
-
-    private static final String FRONT_POSITION = "front";
-    private static final String MAIN_POSITION = "main";
+    private static final String SHELL_BIN = "/system/bin/sh";
+    private static final String GREP_BIN = "/system/bin/grep";
+    private static final String CAT_BIN = "/system/bin/cat";
+    private static final String CAMERA_SUBDEVICE_PATH =
+            "/sys/devices/fd8c0000.qcom,msm-cam/video4linux/*/name";
+    private static final String CAMERA_DETECT_COMMAND =
+            CAT_BIN + " " + CAMERA_SUBDEVICE_PATH + " | " + GREP_BIN;
 
     private String mainSensorName = "";
-    private String mainSensorDev = "";
     private String frontSensorName = "";
-    private String frontSensorDev = "";
 
-    public CameraDetect() {
-        try {
-            setSensorInformation(runCameraDetectBin());
-        } catch (IOException e) {
-            Log.e(TAG, "Could not get output from " + CAMERA_DETECT_BINARY + ": " + e.getMessage());
-        }
+    public CameraDetect(Context context) {
+        Resources res = context.getResources();
+
+        setMainSensorName(runCameraDetectCommand(res.getStringArray(R.array.sensor_names_main)));
+        setFrontSensorName(runCameraDetectCommand(res.getStringArray(R.array.sensor_names_front)));
     }
 
     public String getMainSensorName() {
         return mainSensorName;
     }
 
-    public String getMainSensorDev() {
-        return mainSensorDev;
-    }
-
     public String getFrontSensorName() {
         return frontSensorName;
     }
 
-    public String getFrontSensorDev() {
-        return frontSensorDev;
+    private void setMainSensorName(String mainSensorName) {
+        this.mainSensorName = mainSensorName;
     }
 
-    private BufferedReader runCameraDetectBin() throws IOException {
-        Process p = Runtime.getRuntime().exec(CAMERA_DETECT_BINARY);
-        return new BufferedReader(new InputStreamReader(p.getInputStream()));
+    private void setFrontSensorName(String frontSensorName) {
+        this.frontSensorName = frontSensorName;
     }
 
-    private void setSensorInformation(BufferedReader sensors) throws IOException {
-        for (String line = sensors.readLine(); line != null; line = sensors.readLine()) {
-            parseSensorInformation(line);
+    /**
+     * Find which sensor name of {@code sensorNames} is installed
+     *
+     * @param sensorNames List of sensor names to match against
+     * @return First sensor name that is matched. Empty String otherwise.
+     */
+    private String runCameraDetectCommand(String[] sensorNames) {
+        String command = CAMERA_DETECT_COMMAND;
+
+        for (String sensor : sensorNames) {
+            command += " -e " + sensor;
         }
-    }
 
-    private void parseSensorInformation(String sensorInfo) {
-        StringTokenizer st = new StringTokenizer(sensorInfo, FIELD_DELIM);
-
+        String sensor = "";
         try {
-            String deviceName = parseField(st.nextToken(), DEV_FIELD_NAME);
-            String sensorName = parseField(st.nextToken(), SENSOR_FIELD_NAME);
-            String sensorPosition = parseField(st.nextToken(), POSITION_FIELD_NAME);
-
-            if (FRONT_POSITION.equals(sensorPosition)) {
-                frontSensorDev = deviceName;
-                frontSensorName = sensorName;
-            } else if (MAIN_POSITION.equals(sensorPosition)) {
-                mainSensorDev = deviceName;
-                mainSensorName = sensorName;
-            } else {
-                Log.w(TAG, "Unknown position specifier '" + sensorPosition +"' in " + sensorInfo);
-            }
-        } catch (NoSuchElementException e) {
-            Log.e(TAG, "Could not parse sensor information: " + sensorInfo);
-        }
-    }
-
-    private String parseField(String field, String fieldName) throws NoSuchElementException {
-        StringTokenizer st = new StringTokenizer(field, VALUE_DELIM);
-
-        if (!st.nextToken().equals(fieldName)) {
-            throw new NoSuchElementException();
+            Process p = Runtime.getRuntime().exec(new String[]{ SHELL_BIN, "-c", command });
+            // Only one sensor out of the list sensorNames can be installed
+            sensor = new BufferedReader(new InputStreamReader(p.getInputStream())).readLine();
+        } catch (IOException e) {
+            Log.e(TAG, "Could not get sensor name from '" + command + "': " + e.getMessage());
         }
 
-        return st.nextToken();
+        return sensor;
     }
 }

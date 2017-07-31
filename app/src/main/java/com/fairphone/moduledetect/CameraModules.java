@@ -42,7 +42,7 @@ public class CameraModules {
      * since last boot.
      */
     public void updateCameraDetection() {
-        CameraDetect cd = new CameraDetect();
+        CameraDetect cd = new CameraDetect(mContext);
 
         String prevMainSensor = getStringPref(PREVIOUS_MAIN_SENSOR_PREF);
         String prevFrontSensor = getStringPref(PREVIOUS_FRONT_SENSOR_PREF);
