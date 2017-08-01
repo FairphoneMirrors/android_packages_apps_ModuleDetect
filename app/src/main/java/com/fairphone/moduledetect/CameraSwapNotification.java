@@ -47,7 +47,6 @@ public class CameraSwapNotification {
                         .setSmallIcon(R.drawable.ic_stat_camera_swap)
                         .setContentTitle(context.getString(R.string.camera_swap_notification_title))
                         .setContentText(context.getString(R.string.camera_swap_notification_summary))
-                        .setStyle(new NotificationCompat.BigTextStyle().setBigContentTitle(context.getString(R.string.camera_swap_notification_title)))
                         .setStyle(new NotificationCompat.BigTextStyle().bigText(
                                 context.getString(R.string.camera_swap_notification_summary) + " "
                                         + context.getString(R.string.camera_swap_notification_text)))
