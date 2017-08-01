@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_swap_notification_text">Suivez nos conseils pour assurer le bon fonctionnement de votre nouvelle caméra.</string>
+    <string name="camera_swap_notification_title">Module caméra</string>
+    <string name="camera_swap_notification_summary">Le module caméra a bien été remplacé.</string>
+    <string name="camera_swap_notification_dismiss">Ignorer</string>
+    <string name="camera_swap_notification_open">Ouvrir</string>
+</resources>
