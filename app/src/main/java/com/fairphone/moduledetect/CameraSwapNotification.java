@@ -45,10 +45,12 @@ public class CameraSwapNotification {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_stat_camera_swap)
-                        .setContentTitle(context.getString(R.string.camera_swap_notification_fairphone_camera))
-                        .setContentText(context.getString(R.string.camera_swap_notification_title))
-                        .setStyle(new NotificationCompat.BigTextStyle().setBigContentTitle(context.getString(R.string.camera_swap_notification_fairphone_camera)))
-                        .setStyle(new NotificationCompat.BigTextStyle().bigText(context.getString(R.string.camera_swap_notification_title) + context.getString(R.string.camera_swap_notification_text)))
+                        .setContentTitle(context.getString(R.string.camera_swap_notification_title))
+                        .setContentText(context.getString(R.string.camera_swap_notification_summary))
+                        .setStyle(new NotificationCompat.BigTextStyle().setBigContentTitle(context.getString(R.string.camera_swap_notification_title)))
+                        .setStyle(new NotificationCompat.BigTextStyle().bigText(
+                                context.getString(R.string.camera_swap_notification_summary) + " "
+                                        + context.getString(R.string.camera_swap_notification_text)))
                         .setColor(context.getResources().getColor(R.color.colorPrimary))
                         .addAction(android.support.v7.appcompat.R.drawable.notification_template_icon_bg,
                                 context.getString(R.string.camera_swap_notification_dismiss),
