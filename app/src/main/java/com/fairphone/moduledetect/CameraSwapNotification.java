@@ -22,7 +22,7 @@ public class CameraSwapNotification {
         SharedPreferences preferenceManager =
                 PreferenceManager.getDefaultSharedPreferences(context);
         preferenceManager.edit().putBoolean("com.fairphone.moduledetect.notification_needs_dismissal",
-                true);
+                true).apply();
     }
 
     public static void showNotification(Context context) {
@@ -67,6 +67,6 @@ public class CameraSwapNotification {
         SharedPreferences preferenceManager =
                 PreferenceManager.getDefaultSharedPreferences(context);
         preferenceManager.edit().putBoolean("com.fairphone.moduledetect.notification_needs_dismissal",
-                false);
+                false).apply();
     }
 }
