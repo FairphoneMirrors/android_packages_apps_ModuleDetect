@@ -31,6 +31,10 @@
                 <action android:name="com.fairphone.moduledetect.notification_dismiss" />
             </intent-filter>
         </service>
+        <service
+            android:name=".CameraSwapShowNotificationIntentService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
