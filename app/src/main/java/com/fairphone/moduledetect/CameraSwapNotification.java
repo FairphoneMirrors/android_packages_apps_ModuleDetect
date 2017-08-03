@@ -9,20 +9,20 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 
 public class CameraSwapNotification {
+    private static final String NOTIFICATION_NEEDS_DISMISSAL_PREF =
+            "com.fairphone.moduledetect.notification_needs_dismissal";
     static final int NOTIFICATION_ID = 0;
 
     static boolean needsDismissal(Context context) {
         SharedPreferences preferenceManager =
                 PreferenceManager.getDefaultSharedPreferences(context);
-        return preferenceManager.getBoolean("com.fairphone.moduledetect.notification_needs_dismissal",
-                false);
+        return preferenceManager.getBoolean(NOTIFICATION_NEEDS_DISMISSAL_PREF, false);
     }
 
     static void setNeedsDismissal(Context context) {
         SharedPreferences preferenceManager =
                 PreferenceManager.getDefaultSharedPreferences(context);
-        preferenceManager.edit().putBoolean("com.fairphone.moduledetect.notification_needs_dismissal",
-                true).apply();
+        preferenceManager.edit().putBoolean(NOTIFICATION_NEEDS_DISMISSAL_PREF, true).apply();
     }
 
     public static void showNotification(Context context) {
@@ -66,7 +66,6 @@ public class CameraSwapNotification {
         context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
         SharedPreferences preferenceManager =
                 PreferenceManager.getDefaultSharedPreferences(context);
-        preferenceManager.edit().putBoolean("com.fairphone.moduledetect.notification_needs_dismissal",
-                false).apply();
+        preferenceManager.edit().putBoolean(NOTIFICATION_NEEDS_DISMISSAL_PREF, false).apply();
     }
 }
