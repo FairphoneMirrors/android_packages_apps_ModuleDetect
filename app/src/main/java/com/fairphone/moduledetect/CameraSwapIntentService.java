@@ -24,9 +24,10 @@ public class CameraSwapIntentService extends IntentService {
     }
 
     public static PendingIntent getPendingOpenIntent(Context context) {
-        Intent intent = new Intent(context, CameraSwapIntentService.class);
-        intent.setAction(ACTION_NOTIFICATION_OPEN);
-        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        String url = context.getString(R.string.camera_swap_url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.putExtra("android.support.customtabs.extra.SESSION", context.getPackageName());
+        return PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     public static PendingIntent getPendingSoftDismissIntent(Context context) {
@@ -41,8 +42,6 @@ public class CameraSwapIntentService extends IntentService {
             final String action = intent.getAction();
             if (ACTION_NOTIFICATION_DISMISS.equals(action)) {
                 handleActionDismissNotification();
-            } else if (ACTION_NOTIFICATION_OPEN.equals(action)) {
-                handleActionOpenNotification();
             } else if (ACTION_NOTIFICATION_SWIPE.equals(action)) {
                 handleActionSwipeNotification();
             }
@@ -51,17 +50,6 @@ public class CameraSwapIntentService extends IntentService {
 
     private void handleActionSwipeNotification() {
         Log.d("ModuleDetect", "Camera Swap notification dismissed. Will show again on next reboot.");
-    }
-
-    private void handleActionOpenNotification() {
-        Log.d("ModuleDetect", "Opening support article.");
-        CameraSwapNotification.dismiss(this);
-        String url = getString(R.string.camera_swap_url);
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT);
-        i.setData(Uri.parse(url));
-        startActivity(i);
     }
 
     private void handleActionDismissNotification() {
