@@ -2,6 +2,7 @@ package com.fairphone.moduledetect;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,6 +43,7 @@ public class CameraSwapNotification {
 
 
     static Notification getNotification(Context context) {
+        PendingIntent openIntent = CameraSwapIntentService.getPendingOpenIntent(context);
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         .setSmallIcon(R.drawable.ic_stat_camera_swap)
@@ -51,12 +53,15 @@ public class CameraSwapNotification {
                                 context.getString(R.string.camera_swap_notification_summary) + " "
                                         + context.getString(R.string.camera_swap_notification_text)))
                         .setColor(context.getResources().getColor(R.color.colorPrimary))
+                        .setPriority(Notification.PRIORITY_MAX)
+                        .setAutoCancel(false)
+                        .setContentIntent(openIntent)
                         .addAction(android.support.v7.appcompat.R.drawable.notification_template_icon_bg,
                                 context.getString(R.string.camera_swap_notification_dismiss),
                                 CameraSwapIntentService.getPendingDismissIntent(context))
                         .addAction(android.support.v7.appcompat.R.drawable.notification_template_icon_bg,
                                 context.getString(R.string.camera_swap_notification_open),
-                                CameraSwapIntentService.getPendingOpenIntent(context))
+                                openIntent)
                         .setDeleteIntent(CameraSwapIntentService.getPendingSoftDismissIntent(context));
         return mBuilder.build();
     }
