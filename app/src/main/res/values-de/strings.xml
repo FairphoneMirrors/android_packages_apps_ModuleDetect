@@ -2,7 +2,8 @@
 <resources>
     <string name="camera_swap_notification_text">Bitte lies diese Tipps, um sicherzugehen, dass deine neue Kamera einwandfrei funktioniert.</string>
     <string name="camera_swap_notification_title">Kameramodul</string>
-    <string name="camera_swap_notification_summary">"Kameramodul erfolgreich ausgetauscht. "</string>
+    <string name="camera_swap_notification_summary">Kameramodul erfolgreich ausgetauscht.</string>
     <string name="camera_swap_notification_dismiss">Verwerfen</string>
     <string name="camera_swap_notification_open">Öffnen</string>
+    <string name="camera_swap_notification_read_now">Jetzt lesen</string>
 </resources>

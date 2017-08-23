@@ -31,7 +31,6 @@ public class CameraSwapNotification {
         setNeedsDismissal(context);
         NotificationManager notificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
-        notification.flags |= Notification.FLAG_AUTO_CANCEL;
         notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
@@ -54,15 +53,15 @@ public class CameraSwapNotification {
                                         + context.getString(R.string.camera_swap_notification_text)))
                         .setColor(context.getResources().getColor(R.color.colorPrimary))
                         .setPriority(Notification.PRIORITY_MAX)
-                        .setAutoCancel(false)
+                        .setVisibility(Notification.VISIBILITY_PUBLIC)
                         .setContentIntent(openIntent)
                         .addAction(android.support.v7.appcompat.R.drawable.notification_template_icon_bg,
                                 context.getString(R.string.camera_swap_notification_dismiss),
                                 CameraSwapIntentService.getPendingDismissIntent(context))
                         .addAction(android.support.v7.appcompat.R.drawable.notification_template_icon_bg,
-                                context.getString(R.string.camera_swap_notification_open),
+                                context.getString(R.string.camera_swap_notification_read_now),
                                 openIntent)
-                        .setDeleteIntent(CameraSwapIntentService.getPendingSoftDismissIntent(context));
+                        .setOngoing(true);
         return mBuilder.build();
     }
 

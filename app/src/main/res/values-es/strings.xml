@@ -5,4 +5,5 @@
     <string name="camera_swap_notification_summary">Cámara reemplazada con éxito.</string>
     <string name="camera_swap_notification_dismiss">Descartar</string>
     <string name="camera_swap_notification_open">Abrir</string>
+    <string name="camera_swap_notification_read_now">Leer</string>
 </resources>

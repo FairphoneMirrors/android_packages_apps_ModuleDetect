@@ -5,4 +5,5 @@
     <string name="camera_swap_notification_summary">Cameramodule succesvol vervangen.</string>
     <string name="camera_swap_notification_dismiss">Negeren</string>
     <string name="camera_swap_notification_open">Openen</string>
+    <string name="camera_swap_notification_read_now">Nu lezen</string>
 </resources>

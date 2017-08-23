@@ -5,4 +5,5 @@
     <string name="camera_swap_notification_summary">Le module caméra a bien été remplacé.</string>
     <string name="camera_swap_notification_dismiss">Ignorer</string>
     <string name="camera_swap_notification_open">Ouvrir</string>
+    <string name="camera_swap_notification_read_now">Lire</string>
 </resources>

@@ -5,7 +5,6 @@
     <string name="camera_swap_notification_text">To make sure your new camera works optimally, please read these tips.</string>
     <string name="camera_swap_notification_dismiss">Dismiss</string>
     <string name="camera_swap_notification_open">Open</string>
-    <string name="camera_swap_url" translatable="false">https://fairphone.com/camera-swap</string>
     <string-array name="sensor_names_main" translatable="false">
         <item>ov8865_q8v18a</item>
         <item>ov12870</item>
@@ -14,4 +13,5 @@
         <item>ov2685</item>
         <item>ov5670</item>
     </string-array>
+    <string name="camera_swap_notification_read_now">Read now</string>
 </resources>
