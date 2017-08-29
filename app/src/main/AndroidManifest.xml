@@ -7,34 +7,26 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
+    <!-- System permission (requires platform signature) to start the calibration service. -->
+    <uses-permission android:name="com.fairphone.psensor.permission.CALIBRATE_PROXIMITY_SENSOR" />
+    <!-- System permission (requires platform signature) to start the camera swap service. -->
+    <uses-permission android:name="com.fairphone.cameraswapinfo.permission.HANDLE_CAMERA_CHANGED" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_camera_swap"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:supportsRtl="true">
         <receiver
             android:name=".BootUpReceiver"
             android:enabled="true"
-            android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <service
-            android:name=".CameraSwapIntentService"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.fairphone.moduledetect.notification_dismiss" />
-            </intent-filter>
-        </service>
-        <service
-            android:name=".CameraSwapShowNotificationIntentService"
-            android:enabled="true"
-            android:exported="true"></service>
+        <service android:name=".ModuleDetectIntentService" android:exported="false" />
     </application>
 
 </manifest>

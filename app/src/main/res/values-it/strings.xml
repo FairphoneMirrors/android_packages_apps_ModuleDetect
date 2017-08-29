@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="camera_swap_notification_text">Per essere sicuri che la nuova camera funzioni al meglio di seguito troverete alcuni consigli.</string>
-    <string name="camera_swap_notification_title">Modulo della fotocamera</string>
-    <string name="camera_swap_notification_summary">Cámara reemplazada con éxito.</string>
-    <string name="camera_swap_notification_dismiss">Ignora</string>
-    <string name="camera_swap_notification_open">Apri</string>
-    <string name="camera_swap_notification_read_now">Leggi ora</string>
-</resources>
